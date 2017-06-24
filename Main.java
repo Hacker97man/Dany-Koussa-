@@ -11,7 +11,7 @@ public class Main {
 			arr[i]=input.next();
 		}
 		int Voice=-1;
-		int[]VoiceOfCandidate=new int[number];
+		double[]VoiceOfCandidate=new double[number];
 		while(true){
 			System.out.println("Voice for : ");
 			Voice=input.nextInt();
@@ -25,9 +25,12 @@ public class Main {
 		display(max,min,arr,VoiceOfCandidate,rate);
 	}
 
-	private static void display(int max, int min, String[] arr,int[]voiceOfCandidate, double[] rate) {
-		for(int i=0;i<arr.length;i++)
-			System.out.println(arr[i]+"\t\t"+voiceOfCandidate[i]+"\t"+rate[i]);
+	private static void display(int max, int min, String[] arr,double[]voiceOfCandidate, double[] rate) {
+		for(int i=0;i<arr.length;i++){
+			System.out.print(arr[i]+"\t\t"+voiceOfCandidate[i]);
+			System.out.println("\t"+rate[i]);
+		}
+		
 		System.out.println("min votes is : "+min);
 		System.out.println("max vote is : "+max);
 		String[]find=findFirstCandidate(arr,voiceOfCandidate,max);
@@ -36,7 +39,7 @@ public class Main {
 			System.out.println(f);
 	}
 
-	private static String[] findFirstCandidate(String[] arr, int[] voiceOfCandidate,int max) {
+	private static String[] findFirstCandidate(String[] arr, double[] voiceOfCandidate,int max) {
 		int number=0;
 		for(int i=0;i<voiceOfCandidate.length;i++)
 			if(voiceOfCandidate[i]==max)
@@ -49,31 +52,27 @@ public class Main {
 		return ar;
 	}
 
-	private static int getMin(int[] voiceOfCandidate) {
+	private static int getMin(double[] voiceOfCandidate) {
 		int min=(int) 1e6;
 		for(int i=0;i<voiceOfCandidate.length;i++)
-			min=Math.min(min, voiceOfCandidate[i]);
+			min=(int) Math.min(min, voiceOfCandidate[i]);
 		return min;
 	}
 
-	private static int getMax(int[] voiceOfCandidate) {
+	private static int getMax(double[] voiceOfCandidate) {
 		int max=-1;
 		for(int i=0;i<voiceOfCandidate.length;i++)
-			max=Math.max(max, voiceOfCandidate[i]);
+			max=(int) Math.max(max, voiceOfCandidate[i]);
 		return max;
 	}
 
-	private static double[] getRate(int[] voiceOfCandidate) {
+	private static double[] getRate(double[] voiceOfCandidate) {
 		double[]rate=new double[voiceOfCandidate.length];
 		int allVoices=0;
 		for(int i=0;i<voiceOfCandidate.length;i++)
 			allVoices+=voiceOfCandidate[i];
 		for(int i=0;i<rate.length;i++)
-			rate[i]=voiceOfCandidate[i]*100/allVoices;
-		
+			rate[i]=voiceOfCandidate[i]/allVoices;		
 	return rate;
 	}
-
-	
-
 }
